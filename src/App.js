@@ -1,51 +1,28 @@
 import React, { useState } from "react";
 
-function App() {
+const App = props => {
+  const [name, setName] = useState(props.name);
+  const [price, setPrice] = useState(props.price);
 
-  const [ count, setCount ] = useState(0);
-
-  const increment=()=> setCount(count + 1);
-
-  const decrement = () => setCount(count - 1);
-
-  const triple = () => setCount(count * 3);
-
-  const reset = () => setCount(0);
-
-  const n3 = () => setCount( previousCount => {
-    if (previousCount % 3 === 0) {
-      return previousCount/3
-    } else {
-      return previousCount
-      // return previousCount % 3 === 0 ? previousCount/3 : previousCount
-     }
-  } );
-
+  const reset = () => {
+    setPrice(props.price)
+    setName(props.name)
+  }
+ 
   return (
     <>
-      <div>
-        <p>count: {count}</p>
-        <button onClick={increment}>
-          +1
-        </button>
-        <button onClick={decrement}>
-          -1
-        </button>
-      </div>
-      <div>
-        <button onClick={triple}>
-          x3
-        </button>
-        <button onClick={()=> setCount(count +1)}>increment2</button>
-      </div>
-      <div>
-        <button onClick={reset}>Reset</button>
-      </div>
-      <div>
-        <button onClick={n3}>3n</button>
-      </div>
+      <p>{name}, {price}.</p>
+      <button onClick={()=> setPrice(price +1) }>+1</button>
+      <button onClick={()=> setPrice(price -1) }>-1</button>
+      <button onClick={reset}>Reset</button>
+      <input value={name} onChange={event => setName(event.target.value)}></input>
     </>
   );
+}
+
+App.defaultProps = {
+  name:'Item name',
+  price: 100
 }
 
 export default App;
