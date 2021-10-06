@@ -1,8 +1,8 @@
 
 function App() {
   return (
-    <div>
-      <h1>Weeeei</h1>
+    <div className="container-fluid">
+      <h4>Create Event</h4>
     </div>
   );
 }
