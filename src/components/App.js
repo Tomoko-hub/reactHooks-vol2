@@ -33,11 +33,11 @@ function App() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="formEventBody" value={body}>Body</label>
-          <textarea className="form-control" id="formEventBody" onChange={event => setBoby(event.target.value)}></textarea>
+          <label htmlFor="formEventBody">Body</label>
+          <textarea className="form-control" id="formEventBody" value={body} onChange={event => setBoby(event.target.value)}></textarea>
         </div>
 
-        <button className="btn btn-primary"onClick={addEvent}>Create Event</button>
+        <button className="btn btn-primary" onClick={addEvent}>Create Event</button>
         <button className="btn btn-danger ml-2">Delete All Event</button>
 
           <h4>Show all event</h4>
