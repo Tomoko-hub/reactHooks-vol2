@@ -5,7 +5,8 @@ const Event = ({dispatch, event})=> {
 
     const id = event.id;
     const handleClickDeleteButton = ()=>{
-        dispatch({
+        const result = window.confirm(`Do you really want to delete this event(id=${id})`);
+        if (result) dispatch({
             type:'DELETE_EVENT',
             id
         })

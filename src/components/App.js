@@ -22,6 +22,13 @@ function App() {
     setBoby('');
   }
 
+  const deleteAllEvents = event => {
+    event.preventDefault();
+    const result = window.confirm('Are you sure?');
+    if (result) dispatch({type:'DELETE_ALL_EVENTS'});
+  }
+
+  const unCreatable = title === '' || body === '';
   //console.log({state});
 
   return (
@@ -38,8 +45,8 @@ function App() {
           <textarea className="form-control" id="formEventBody" value={body} onChange={event => setBoby(event.target.value)}></textarea>
         </div>
 
-        <button className="btn btn-primary" onClick={addEvent}>Create Event</button>
-        <button className="btn btn-danger ml-2">Delete All Event</button>
+        <button className="btn btn-primary" onClick={addEvent} disabled={unCreatable}>Create Event</button>
+        <button className="btn btn-danger ml-2" onClick={deleteAllEvents} disabled={state.length === 0}>Delete All Event</button>
 
           <h4>Show all event</h4>
           <table className="table table-hover">
