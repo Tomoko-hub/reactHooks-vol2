@@ -1,5 +1,7 @@
 import React, { useState }from "react";
 
+import { CREATE_EVENT, DELETE_ALL_EVENTS } from '../actions';
+
 const EventForm = ({ state, dispatch }) => {
 
     const [ title, setTitle ] = useState('');
@@ -8,7 +10,7 @@ const EventForm = ({ state, dispatch }) => {
     const addEvent = event =>{
         event.preventDefault();
         dispatch({
-        type:'CREATE_EVENT',
+        type: CREATE_EVENT,
         title,
         body
     });
@@ -20,12 +22,11 @@ const EventForm = ({ state, dispatch }) => {
     const deleteAllEvents = event => {
         event.preventDefault();
         const result = window.confirm('Are you sure?');
-        if (result) dispatch({type:'DELETE_ALL_EVENTS'});
+        if (result) dispatch({type:DELETE_ALL_EVENTS});
     }
 
     const unCreatable = title === '' || body === '';
     //console.log({state});
-
 
     return (
     <>
@@ -43,7 +44,6 @@ const EventForm = ({ state, dispatch }) => {
 
             <button className="btn btn-primary" onClick={addEvent} disabled={unCreatable}>Create Event</button>
             <button className="btn btn-danger ml-2" onClick={deleteAllEvents} disabled={state.length === 0}>Delete All Event</button>
-
             
         </form>
     </>

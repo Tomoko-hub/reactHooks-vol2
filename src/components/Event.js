@@ -1,5 +1,6 @@
 import React from "react";
 
+import { DELETE_EVENT } from '../actions';
 
 const Event = ({dispatch, event})=> {
 
@@ -7,7 +8,7 @@ const Event = ({dispatch, event})=> {
     const handleClickDeleteButton = ()=>{
         const result = window.confirm(`Do you really want to delete this event(id=${id})`);
         if (result) dispatch({
-            type:'DELETE_EVENT',
+            type:DELETE_EVENT,
             id
         })
     }
