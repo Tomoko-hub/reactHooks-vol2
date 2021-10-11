@@ -1,7 +1,8 @@
 import React, { useState, useContext }from "react";
 
-import { CREATE_EVENT, DELETE_ALL_EVENTS } from '../actions';
+import { CREATE_EVENT, DELETE_ALL_EVENTS, ADD_OPERATION_LOG, DELETE_ALL_OPERATION_LOGS } from '../actions';
 import AppContext from '../contexts/AppContext';
+import { timeCuurentIso8601 } from '../utils';
 
 const EventForm = () => {
     const { state, dispatch } = useContext(AppContext);
@@ -11,10 +12,16 @@ const EventForm = () => {
     const addEvent = event =>{
         event.preventDefault();
         dispatch({
-        type: CREATE_EVENT,
-        title,
-        body
+          type: CREATE_EVENT,
+          title,
+          body
     });
+
+        dispatch({
+            type: ADD_OPERATION_LOG,
+            description: 'Event was created.',
+            operatedAt: timeCuurentIso8601()
+        });
 
         setTitle('');
         setBoby('');
@@ -23,30 +30,39 @@ const EventForm = () => {
     const deleteAllEvents = event => {
         event.preventDefault();
         const result = window.confirm('Are you sure?');
-        if (result) dispatch({type:DELETE_ALL_EVENTS});
+        if (result){
+          dispatch({type:DELETE_ALL_EVENTS})
+
+          dispatch({
+              type: ADD_OPERATION_LOG,
+              description:'Deleted all events.',
+              operatedAt: timeCuurentIso8601()
+          })
+        };
     }
 
     const unCreatable = title === '' || body === '';
 
     return (
-    <>
-        <h4>Create Event</h4>
-        <form>
-            <div className="form-group">
-            <label htmlFor="formEventTitle">Title</label>
-            <input className="form-control" id="formEventTitle" value={title} onChange={event =>setTitle(event.target.value)}></input>
-            </div>
 
-            <div className="form-group">
-            <label htmlFor="formEventBody">Body</label>
-            <textarea className="form-control" id="formEventBody" value={body} onChange={event => setBoby(event.target.value)}></textarea>
-            </div>
+        <>
+            <h4>Create Event</h4>
+            <form>
+                <div className="form-group">
+                <label htmlFor="formEventTitle">Title</label>
+                <input className="form-control" id="formEventTitle" value={title} onChange={event =>setTitle(event.target.value)}></input>
+                </div>
 
-            <button className="btn btn-primary" onClick={addEvent} disabled={unCreatable}>Create Event</button>
-            <button className="btn btn-danger ml-2" onClick={deleteAllEvents} disabled={state.events.length === 0}>Delete All Event</button>
-            
-        </form>
-    </>
+                <div className="form-group">
+                <label htmlFor="formEventBody">Body</label>
+                <textarea className="form-control" id="formEventBody" value={body} onChange={event => setBoby(event.target.value)}></textarea>
+                </div>
+
+                <button className="btn btn-primary" onClick={addEvent} disabled={unCreatable}>Create Event</button>
+                <button className="btn btn-danger ml-2" onClick={deleteAllEvents} disabled={state.events.length === 0}>Delete All Event</button>
+                
+            </form>
+        </>
     );
 }
 
