@@ -27,7 +27,6 @@ const EventForm = () => {
     }
 
     const unCreatable = title === '' || body === '';
-    //console.log({state});
 
     return (
     <>
