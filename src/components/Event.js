@@ -18,7 +18,7 @@ const Event = ({ event })=> {
 
           dispatch({ 
             type:ADD_OPERATION_LOG,
-            description:`Deleted event:(id=${id}).`,
+            description:`Event:(id=${id}) was deleted.`,
             operatedAt: timeCuurentIso8601()
           })
         }
